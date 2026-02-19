@@ -1,2 +1,3 @@
 pytest 9.0.2
 selenium Version: 4.40.0
+pytest == 9.0.2
