@@ -15,9 +15,10 @@ def test_saucedemo_checkout():
     try:
         driver.get("https://www.saucedemo.com/")
         driver.maximize_window()
-        driver.find_element(By.ID, "user-name").send_keys("standard_user")
-        driver.find_element(By.ID, "password").send_keys("secret_sauce")
-        driver.find_element(By.ID, "login-button").click()
+        wait.until(EC.visibility_of_element_located((By.ID, "user-name"))).send_keys("standard_user")
+        wait.until(EC.visibility_of_element_located((By.ID, "password"))).send_keys("secret_sauce")
+        wait.until(EC.visibility_of_element_located((By.ID, "login-button"))).click()
+        wait = WebDriverWait(driver, 50)
 
         items = ["add-to-cart-sauce-labs-backpack",
                  "add-to-cart-sauce-labs-bolt-t-shirt",

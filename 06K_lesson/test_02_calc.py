@@ -9,7 +9,6 @@ class TestSlowCalculator:
     def setup_and_teardown(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        self.driver.implicitly_wait(5)
         yield
         self.driver.quit()
 
