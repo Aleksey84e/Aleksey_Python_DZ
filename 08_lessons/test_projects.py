@@ -35,9 +35,15 @@ def test_create_project_success(api):
     response = api.create(title)
 
     assert response.status_code == 201, "Ожидался статус 201 (Created)"
-    assert response.json()["title"] == title
-    # Удаляем за собой
-    api.delete(response.json()["id"])
+
+    project_id = response.json().get("id")
+    assert project_id, "В ответе должен присутствовать id"
+
+    get_response = api.get_by_id(project_id)
+    assert get_response.status_code == 200
+    assert get_response.json()["title"] == title
+
+    api.delete(project_id)
 
 
 def test_get_project_success(api, created_project):
@@ -54,7 +60,10 @@ def test_update_project_success(api, created_project):
     response = api.update(created_project, new_title)
 
     assert response.status_code == 200
-    assert response.json()["title"] == new_title
+
+    get_response = api.get_by_id(created_project)
+    assert get_response.status_code == 200
+    assert get_response.json()["title"] == new_title
 
 
 # --- НЕГАТИВНЫЕ ТЕСТЫ ---
